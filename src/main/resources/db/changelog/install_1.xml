@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+    
+   <changeSet  author="aalagel"  id="12-20230911-1">  
+    <tagDatabase  tag="1.0"/>  
+	</changeSet>
+
+   <changeSet  author="aalagel"  id="12-20230911-2">
+    <addColumn catalogName="BASHIR"  
+			schemaName= "dbo"
+			tableName="TBL_BASHIR3_PERMISSION" >
+		<column name="ROUTER_LINK" 
+			type="varchar(250)"/>  
+	</addColumn>  
+</changeSet>
+
+
+  <changeSet author="aalagel" id="12-20230911-3">
+  	<sql > 
+	</sql>
+	 <rollback>
+      
+    </rollback>
+  </changeSet>
+    
+</databaseChangeLog>
