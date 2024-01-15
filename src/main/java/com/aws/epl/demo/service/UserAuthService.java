@@ -1,4 +1,4 @@
-package com.aws.epl.demo.security;
+package com.aws.epl.demo.service;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -9,11 +9,16 @@ import org.springframework.stereotype.Service;
 
 import com.aws.epl.demo.dto.LoginInfoOutput;
 import com.aws.epl.demo.dto.LoginRequest;
+import com.aws.epl.demo.dto.SignInDto;
 import com.aws.epl.demo.dto.UserLoginInfo;
+import com.aws.epl.demo.entity.User;
 import com.aws.epl.demo.enums.RecordActivityType;
 import com.aws.epl.demo.exception.GeneralException;
 import com.aws.epl.demo.repo.UserRepository;
+import com.aws.epl.demo.security.JWTBuildService;
+import com.aws.epl.demo.utils.PasswordService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
@@ -24,6 +29,7 @@ public class UserAuthService {
 
 	private final UserRepository userRepository;
 	private final JWTBuildService jwtService;
+	private final PasswordService passwordService;
 
 	 private @Value("${token.expirationtime:130}") Short tokenExpirationtime;
 	 
@@ -56,5 +62,19 @@ public class UserAuthService {
 				user.getLastLoginTime(), LocalDateTime.now());
 
 		return loginResponse;
+	}
+	
+	public String addNewUser(SignInDto signInDto) {
+		User user = new User();
+		user.setType(2);
+		user.setRecordActivity(RecordActivityType.ACTIVE);
+		user.setUserId(signInDto.username());
+		user.setUsername(signInDto.username());
+		user.setBadLoginCount(0);
+		user.setPassword(passwordService.encrypt(signInDto.password()));
+		user.setEmail(signInDto.email());
+		user.setLastLoginTime(LocalDateTime.now());
+		userRepository.save(user);
+		return "User has been added";
 	}
 }

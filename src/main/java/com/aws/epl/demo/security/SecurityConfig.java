@@ -44,9 +44,11 @@ public class SecurityConfig {
 				.headers(headers -> headers.frameOptions().disable())
 				.csrf(csrf -> csrf.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")))
 				.csrf(csrf -> csrf.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/sessions")))
-				
+				.csrf(csrf -> csrf.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/sign-in")))
 				.authorizeHttpRequests().requestMatchers(new AntPathRequestMatcher("/api/v1/forget-password"))
 				.permitAll().requestMatchers(new AntPathRequestMatcher("/api/v1/sessions", HttpMethod.POST.name()))
+				.permitAll()
+				.requestMatchers(new AntPathRequestMatcher("/api/v1/sign-in", HttpMethod.POST.name()))
 				.permitAll()
 //				.requestMatchers(new AntPathRequestMatcher("/api/v1/resend-otp",HttpMethod.POST.name())).permitAll()
 //				.requestMatchers(new AntPathRequestMatcher("/api/v1/verify-otp",HttpMethod.POST.name())).permitAll()

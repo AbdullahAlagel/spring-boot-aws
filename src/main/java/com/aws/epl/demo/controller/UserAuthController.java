@@ -1,5 +1,8 @@
 package com.aws.epl.demo.controller;
 
+import java.util.Collections;
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,7 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.aws.epl.demo.dto.LoginInfoOutput;
 import com.aws.epl.demo.dto.LoginRequest;
-import com.aws.epl.demo.security.UserAuthService;
+import com.aws.epl.demo.dto.SignInDto;
+import com.aws.epl.demo.service.UserAuthService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -44,4 +48,12 @@ public class UserAuthController {
 		}
 	}
 
+	@PostMapping("/sign-in")
+	public ResponseEntity<?> signIn(@Valid @RequestBody SignInDto signInDto, HttpServletRequest request) {
+		log.info("Sign In - username:{}", signInDto.username());
+		String message = service.addNewUser(signInDto);
+		Map<String, String> response = Collections.singletonMap("message", message);
+		return ResponseEntity.ok().body(response);
+
+	}
 }
