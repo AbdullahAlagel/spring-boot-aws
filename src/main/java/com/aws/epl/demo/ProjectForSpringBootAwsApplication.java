@@ -44,70 +44,70 @@ public class ProjectForSpringBootAwsApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-	User user = new User();
-	user.setType(1);
-	user.setRecordActivity(RecordActivityType.ACTIVE);
-	user.setUserId("admin");
-	user.setUsername("admin");
-	user.setBadLoginCount(0);
-	user.setPassword(passwordService.encrypt("Aa123456"));
-	user.setEmail("aa@gmail.com");
-	user.setLastLoginTime(LocalDateTime.now() );
-	userRepository.save(user);
-	
-	
-	User user2 = new User();
-	user2.setType(2);
-	user2.setRecordActivity(RecordActivityType.ACTIVE);
-	user2.setUserId("ali");
-	user2.setUsername("ali");
-	user2.setBadLoginCount(0);
-	user2.setPassword(passwordService.encrypt("Aa123456"));
-	user2.setEmail("ali@gmail.com");
-	user2.setLastLoginTime(LocalDateTime.now());
-	userRepository.save(user2);
-	
-	
-	Student su = new Student();
-	su.setFirstName("sami");
-	su.setLastName("saad");
-	su.setAddress("jeddah");
-	su.setPhone("0595963296");
-	studentRepository.save(su);
-	
-	
-	Student su2 = new Student();
-	su2.setFirstName("Abdullah");
-	su2.setLastName("Ali");
-	su2.setAddress("Riyo");
-	su2.setPhone("0566963296");
-	studentRepository.save(su2);
-	
-	Student su3 = new Student();
-	su3.setFirstName("alaa");
-	su3.setLastName("mohammed");
-	su3.setAddress("qassim");
-	su3.setPhone("0595223296");
-	studentRepository.save(su3);
-	
-	
-	Course course = new Course();
-	course.setCourseName("AI");
-	course.setInsertDate(LocalDateTime.now());
-	course.setStudent(Arrays.asList(su3));
-	courseRepository.save(course);
-	
-	Course course2 = new Course();
-	course2.setCourseName("ANGULAR");
-	course2.setInsertDate(LocalDateTime.now());
-	course2.setStudent(Arrays.asList(su3));
-	courseRepository.save(course2);
-	
-	Course course3 = new Course();
-	course3.setCourseName("React Native");
-	course3.setInsertDate(LocalDateTime.now());
-//	course3.setStudent(Arrays.asList(su3));
-	courseRepository.save(course3);
+//	User user = new User();
+//	user.setType(1);
+//	user.setRecordActivity(RecordActivityType.ACTIVE);
+//	user.setUserId("admin");
+//	user.setUsername("admin");
+//	user.setBadLoginCount(0);
+//	user.setPassword(passwordService.encrypt("Aa123456"));
+//	user.setEmail("aa@gmail.com");
+////	user.setLastLoginTime(LocalDateTime.now() );
+//	userRepository.save(user);
+//	
+//	
+//	User user2 = new User();
+//	user2.setType(2);
+//	user2.setRecordActivity(RecordActivityType.ACTIVE);
+//	user2.setUserId("ali");
+//	user2.setUsername("ali");
+//	user2.setBadLoginCount(0);
+//	user2.setPassword(passwordService.encrypt("Aa123456"));
+//	user2.setEmail("ali@gmail.com");
+////	user2.setLastLoginTime(LocalDateTime.now());
+//	userRepository.save(user2);
+//	
+//	
+//	Student su = new Student();
+//	su.setFirstName("sami");
+//	su.setLastName("saad");
+//	su.setAddress("jeddah");
+//	su.setPhone("0595963296");
+//	studentRepository.save(su);
+//	
+//	
+//	Student su2 = new Student();
+//	su2.setFirstName("Abdullah");
+//	su2.setLastName("Ali");
+//	su2.setAddress("Riyo");
+//	su2.setPhone("0566963296");
+//	studentRepository.save(su2);
+//	
+//	Student su3 = new Student();
+//	su3.setFirstName("alaa");
+//	su3.setLastName("mohammed");
+//	su3.setAddress("qassim");
+//	su3.setPhone("0595223296");
+//	studentRepository.save(su3);
+//	
+//	
+//	Course course = new Course();
+//	course.setCourseName("AI");
+////	course.setInsertDate(LocalDateTime.now());
+//	course.setStudent(Arrays.asList(su3));
+//	courseRepository.save(course);
+//	
+//	Course course2 = new Course();
+//	course2.setCourseName("ANGULAR");
+////	course2.setInsertDate(LocalDateTime.now());
+//	course2.setStudent(Arrays.asList(su3));
+//	courseRepository.save(course2);
+//	
+//	Course course3 = new Course();
+//	course3.setCourseName("React Native");
+////	course3.setInsertDate(LocalDateTime.now());
+////	course3.setStudent(Arrays.asList(su3));
+//	courseRepository.save(course3);
 	
 	//test 
 //	Permission main = new Permission();

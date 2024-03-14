@@ -1,6 +1,6 @@
 package com.aws.epl.demo.dto;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 import com.aws.epl.demo.enums.RecordActivityType;
 
@@ -22,9 +22,9 @@ public class UserLoginInfo {
 	private Integer type;
 	private String userId;
 	private String name;
-	private LocalDateTime userCreationDate;
+	private Timestamp  userCreationDate;
 	private Integer badLoginCount;
-	private LocalDateTime lastLoginTime;
+	private Timestamp  lastLoginTime;
 	private RecordActivityType recordActivity;
 //	private String roleName;
 	private String password;

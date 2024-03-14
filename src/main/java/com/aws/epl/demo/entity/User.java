@@ -1,8 +1,10 @@
 package com.aws.epl.demo.entity;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import com.aws.epl.demo.enums.RecordActivityType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -28,7 +30,7 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID", columnDefinition = "numeric(10, 0)", nullable = false)
+	@Column(name = "ID", columnDefinition = "bigint", nullable = false)
 	private Long id;
 
 	@Column(name = "TYPE", columnDefinition = "int", updatable = false)
@@ -46,16 +48,17 @@ public class User {
 	@Column(name = "NAME", columnDefinition = "varchar(255)", nullable = false)
 	private String username;
 
-	@Column(name = "BAD_LOGIN_COUNT", columnDefinition = "smallint")
+	@Column(name = "BAD_LOGIN_COUNT")
 	private Integer badLoginCount;
 
-	@Column(name = "USER_CREATE_DATE", columnDefinition = "datetime")
-	private LocalDateTime userCreationDate = LocalDateTime.now();
+	@CreationTimestamp
+	@Column(name = "USER_CREATE_DATE", columnDefinition = "date")
+	private Timestamp  userCreationDate;
 
-	@Column(name = "LAST_LOGIN_TIME", columnDefinition = "datetime")
-	private LocalDateTime lastLoginTime;
+	@Column(name = "LAST_LOGIN_TIME", columnDefinition = "date")
+	private Timestamp  lastLoginTime;
 
-	@Column(name = "RECORD_ACTIVITY", columnDefinition = "smallint")
+	@Column(name = "RECORD_ACTIVITY")
 	private RecordActivityType recordActivity = RecordActivityType.ACTIVE;
 
 	@ManyToMany(fetch = FetchType.LAZY)

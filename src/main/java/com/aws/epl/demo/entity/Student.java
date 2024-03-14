@@ -22,7 +22,7 @@ public class Student {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 //	,unique = true
-	@Column(name = "FIRST_NAME",columnDefinition = "varchar(50)")
+	@Column(name = "FIRST_NAME",columnDefinition = "varchar(50)",unique = true)
 	private String firstName;
 	
 	@Column(name = "LAST_NAME",columnDefinition = "varchar(50)")

@@ -1,5 +1,6 @@
 package com.aws.epl.demo.repo;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -28,6 +29,24 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	@Modifying(clearAutomatically = true,flushAutomatically = true)
 	@Query("update User u set u.badLoginCount = 0 WHERE u.username = :username and recordActivity = :recordActivity")
 	int resetBadLogin(@Param("username") String username, @Param("recordActivity") RecordActivityType recordActivity);
+
+
+
+	Boolean existsByUserId(String username);
+
+
+	@Query(value ="select Pg.display_order,pg.display_tag \r\n"
+			+ ",per.name,per.tag,per.url\r\n"
+			+ "from tbl_parent_page Pg\r\n"
+			+ "join (\r\n"
+			+ "select per.* from tbl_role r \r\n"
+			+ "join user_role ur on ur.role_id = r.id\r\n"
+			+ "join tbl_users u on u.id = ur.user_id\r\n"
+			+ "join tbl_role_permission rp on rp.role_id = r.id\r\n"
+			+ "join tbl_permission per on per.id = rp.permission_id \r\n"
+			+ "where u.user_id=?1\r\n"
+			+ ") AS per on per.parent_pages_id = pg.id", nativeQuery = true)
+	List<Object[]> findUserRoleAndPermission(String userId);
 
 //	@Modifying(clearAutomatically = true, flushAutomatically = true)
 //	@Query(nativeQuery = true, value = "UPDATE TBL_USERS SET BAD_LOGIN_COUNT=BAD_LOGIN_COUNT+1 , "

@@ -1,6 +1,6 @@
 package com.aws.epl.demo.exception;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
@@ -40,7 +40,7 @@ public class GlobalExceptionHandler {
 	private ResponseEntity<ErrorResult> buildResponseEntity(WebRequest request, HttpStatus status, String type,
 			String errorMessage) {
 		String path = ((ServletWebRequest) request).getRequest().getRequestURI().toString();
-		ErrorResult error = new ErrorResult(status, path,LocalDateTime.now(), errorMessage);
+		ErrorResult error = new ErrorResult(status, path,null, errorMessage);
 		return new ResponseEntity<ErrorResult>(error, status);
 	}
 
@@ -86,7 +86,7 @@ public class GlobalExceptionHandler {
 	        String errorTranslated = localeService
 	                .getMessage(Language.languageOf(LocaleContextHolder.getLocale().getLanguage()), errorMessage);
 	        String path = ((ServletWebRequest) request).getRequest().getRequestURI();
-	        ErrorResult error = new ErrorResult(status, path, LocalDateTime.now(), errorTranslated);
+	        ErrorResult error = new ErrorResult(status, path,new Timestamp(System.currentTimeMillis()), errorTranslated);
 	        return new ResponseEntity<>(error, status);
 	    }
 	    @ExceptionHandler(Exception.class)

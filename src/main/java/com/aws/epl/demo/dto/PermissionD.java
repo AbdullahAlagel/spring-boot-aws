@@ -1,6 +1,6 @@
 package com.aws.epl.demo.dto;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +13,7 @@ public class PermissionD{
 	private String tag;
 	private Integer orderList;
 	private String url;
-	private LocalDateTime loginTime;
+	private Timestamp  loginTime;
 	private Boolean hasParentPage;
 	private ParentPageDto parentPageDto;
 }

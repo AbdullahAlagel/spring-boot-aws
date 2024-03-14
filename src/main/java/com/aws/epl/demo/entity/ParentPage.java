@@ -3,7 +3,6 @@ package com.aws.epl.demo.entity;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -25,7 +24,7 @@ public class ParentPage {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(columnDefinition = "numeric(19,0)")
+	@Column(columnDefinition = "bigint")
 	private Long id;
 	
 	@Column(name = "DISPLAY_TAG",columnDefinition = "varchar(250)",unique = true)

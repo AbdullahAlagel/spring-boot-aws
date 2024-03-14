@@ -1,6 +1,6 @@
 package com.aws.epl.demo.entity;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,16 +27,16 @@ public class Course {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 //	,unique = true
-	@Column(name = "COURSE_NAME", columnDefinition = "varchar(255)")
+	@Column(name = "COURSE_NAME")
 	private String courseName;
 
 //	@Column(name = "LAST_NAME",columnDefinition = "varchar(50)")
 //	private String lastName;
 
-	@Column(name = "INSERT_DATE", columnDefinition = "date")
-	private LocalDateTime insertDate;
+	@Column(name = "INSERT_DATE")
+	private Timestamp  insertDate;
 
-	@Column(name = "RECORD_ACTIVITY", columnDefinition = "smallint")
+	@Column(name = "RECORD_ACTIVITY")
 	private RecordActivityType recordActivity = RecordActivityType.ACTIVE;
 
 	@ManyToMany()

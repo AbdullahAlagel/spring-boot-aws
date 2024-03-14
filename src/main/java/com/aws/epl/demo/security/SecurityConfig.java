@@ -17,6 +17,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter.ReferrerPolicy;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 import com.aws.epl.demo.interceptor.JwtAuthenticationFilter;
 
@@ -38,20 +39,19 @@ public class SecurityConfig {
 	// STATELESS ) to ensure every request will be authenticated
 	// (Authorization) part
 	@Bean
-	protected SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests(
-				auth -> auth.requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll())
-				.headers(headers -> headers.frameOptions().disable())
-				.csrf(csrf -> csrf.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")))
+	protected SecurityFilterChain securityFilterChain(HttpSecurity http, HandlerMappingIntrospector introspector) throws Exception {
+		http
+        
+				.headers(headers -> headers.frameOptions())
+//				.csrf(csrf -> csrf.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")))
 				.csrf(csrf -> csrf.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/sessions")))
 				.csrf(csrf -> csrf.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/sign-in")))
+				
 				.authorizeHttpRequests().requestMatchers(new AntPathRequestMatcher("/api/v1/forget-password"))
 				.permitAll().requestMatchers(new AntPathRequestMatcher("/api/v1/sessions", HttpMethod.POST.name()))
 				.permitAll()
 				.requestMatchers(new AntPathRequestMatcher("/api/v1/sign-in", HttpMethod.POST.name()))
 				.permitAll()
-//				.requestMatchers(new AntPathRequestMatcher("/api/v1/resend-otp",HttpMethod.POST.name())).permitAll()
-//				.requestMatchers(new AntPathRequestMatcher("/api/v1/verify-otp",HttpMethod.POST.name())).permitAll()
 //				.requestMatchers(new AntPathRequestMatcher("/api/v1/")).permitAll()
 				.requestMatchers(new AntPathRequestMatcher("/api/v1/health-check")).permitAll().anyRequest()
 				.authenticated().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
@@ -63,6 +63,25 @@ public class SecurityConfig {
 				.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);
 		http.cors().and().csrf().disable();
 		return http.build();
+	
+		
+		// connect h2 DB with call API Correct 
+//		http
+//		.authorizeHttpRequests((authorize) -> authorize.requestMatchers(PathRequest.toH2Console()).permitAll()
+//				.requestMatchers(new AntPathRequestMatcher("/api/v1/sessions",HttpMethod.POST.name())).permitAll()
+//				.requestMatchers(new AntPathRequestMatcher("/api/v1/sign-in",HttpMethod.POST.name())).permitAll()
+//				.anyRequest()
+//				.authenticated()).sessionManagement()
+//		        .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().csrf((csrf) -> csrf.disable())
+//				.headers((headers) -> headers.frameOptions((frame) -> frame.sameOrigin()))
+////				.csrf(csrf -> csrf.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/sessions")))
+////				.csrf(csrf -> csrf.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/sign-in")))
+//				.authenticationProvider(authenticationProvider())
+//				.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+//				.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
+//				.httpBasic(Customizer.withDefaults()).formLogin(Customizer.withDefaults());
+//		http.csrf().disable();
+//		return http.build();
 	}
 
 	@Bean

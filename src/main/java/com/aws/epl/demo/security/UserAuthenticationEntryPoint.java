@@ -2,7 +2,7 @@ package com.aws.epl.demo.security;
 
 
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -32,7 +32,8 @@ public class UserAuthenticationEntryPoint implements AuthenticationEntryPoint {
 		response.setContentType("application/json;charset=UTF-8");
 		response.setStatus(401);
 		ObjectNode node = JsonNodeFactory.instance.objectNode();
-		node.put("timestamp", LocalDateTime.now().toString());
+		Timestamp ts=new Timestamp(System.currentTimeMillis());  
+		node.put("timestamp", ts.toString());
 		node.put("status", 401);
 		node.put("error", "Unauthorized");
 		node.put("message", localeService.getMessage(Language.languageOf(LocaleContextHolder.getLocale().getLanguage()), expiredMsg!=null? expiredMsg : (String) request.getAttribute("invalid.token")));

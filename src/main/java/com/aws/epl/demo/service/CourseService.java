@@ -1,6 +1,6 @@
 package com.aws.epl.demo.service;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,13 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.aws.epl.demo.dto.CourseInput;
 import com.aws.epl.demo.entity.Course;
-import com.aws.epl.demo.entity.Student;
 import com.aws.epl.demo.repo.CourseRepository;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import lombok.extern.java.Log;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -28,7 +25,7 @@ public class CourseService {
 		log.info("Course Name : {} and inserted Date : {} ",courseInput.courseName(),courseInput.insertDate());
 		Course course = new Course();
 		course.setCourseName(courseInput.courseName());
-		course.setInsertDate(LocalDateTime.now());
+		course.setInsertDate(new Timestamp(System.currentTimeMillis()));
 		courseRepository.save(course);
 
 		return "Course Added Successfuly";
@@ -50,7 +47,7 @@ public class CourseService {
 	public String updateStudentById(Long id, @Valid CourseInput dto) {
 		Optional<Course> result = courseRepository.findById(id);
 		result.get().setCourseName(dto.courseName());
-		result.get().setInsertDate(LocalDateTime.now());
+		result.get().setInsertDate(new Timestamp(System.currentTimeMillis()));
 		courseRepository.save(result.get());
 		return "Course Updated Successfuly";
 	}
